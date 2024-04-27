@@ -21,7 +21,7 @@ def login():
         username = request.form.get("username")
         pw= request.form.get("password")
         
-        if username == "zach" and pw == "zach123":
+        if username == "..." and pw == "...":
             return render_template("secure.html", user=username )
         else:
             return render_template("login.html", user=username, control=True)

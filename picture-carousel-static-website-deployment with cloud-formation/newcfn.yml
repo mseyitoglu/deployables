@@ -5,35 +5,35 @@ Description: |
 Parameters:
   pImageId:
     Description: Latest Amazon Linux Ami ID
-    Type: AWS::EC2::Image::Id
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
     Default: /aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64
   
   pKeyPair:
     Description: Key Pair Name
     Type: AWS::EC2::KeyPair::KeyName
-    Default: 
 
 Resources: 
   rSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: "Enable ssh and HTTP for web server"
+      GroupName: enable-http-and-ssh
       SecurityGroupIngress:
-      - IpProtocol: TCP
+      - IpProtocol: tcp
         ToPort: 22
         FromPort: 22
         CidrIp: 0.0.0.0/0
-      - IpProtocol: TCP
+      - IpProtocol: tcp
         ToPort: 80
         FromPort: 80
         CidrIp: 0.0.0.0/0
   rWebServer:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: !Ref pImageId 
+      ImageId: !Ref pImageId
       InstanceType: t2.micro
       KeyName: !Ref pKeyPair
-      SecurityGroups:
+      SecurityGroupIds:
       - !GetAtt rSecurityGroup.GroupId
       Tags: 
       - Key: Name
