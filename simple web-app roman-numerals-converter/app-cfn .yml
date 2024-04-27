@@ -1,0 +1,58 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: |
+  "deploy a converter ap using cfn to an EC2 instance"
+Parameters:
+  pImageId:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64
+  pkey:
+    Type: AWS::EC2::KeyPair::KeyName
+
+
+Resources:
+  rSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "ssh and http group" # Required
+      GroupName: "for converter"
+      SecurityGroupIngress:
+      - CidrIp: 0.0.0.0/0
+        FromPort: 80
+        IpProtocol: tcp 
+        ToPort: 80
+      - CidrIp: 0.0.0.0/0
+        FromPort: 22
+        IpProtocol: tcp 
+        ToPort: 22  
+  myServer:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref pImageId
+      InstanceType: "t2.micro"
+      KeyName: !Ref pkey
+      SecurityGroupIds: 
+      - !GetAtt rSecurityGroup.GroupId
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash -x
+          yum update -y
+          yum install python3 -y
+          yum install pip -y
+          pip install flask
+          yum update -y
+          APP="https://raw.githubusercontent.com/mseyitoglu/deployables/main/simple%20web-app%20roman-numerals-converter"
+          cd /home/ec2-user/
+          wget ${APP}/app.py
+          mkdir templates && cd templates
+          wget ${APP}/templates/index.html
+          wget ${APP}/templates/result.html
+          cd ..
+          python3 app.py
+      Tags: 
+      - Key: Name
+        Value: ms-server
+
+      
+  
+#Outputs:
