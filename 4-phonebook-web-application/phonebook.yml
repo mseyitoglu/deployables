@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: |
+  Build RDS, ALB, ASG for phonebook app
+  
+Parameters:
+  pVPC:
+    Description: VPC for RDS 
+    Type: AWS::EC2::VPC::Id
+  
+  
+Resources:
+  rRDSSecGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "Front-end Access to RDS"
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 3306
+        ToPort: 3306
+        CidrIp: 0.0.0.0/0
+      VpcId: !Ref pVPC
+  rRDS:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AllocatedStorage: 20
+      AllowMajorVersionUpgrade: false
+      AutoMinorVersionUpgrade: true
+      BackupRetentionPeriod: 7
+      DBInstanceClass: db.t2.micro
+      DBInstanceIdentifier: "ms-phonebook-db-instance"
+      DBName: ms-phonebook
+      Engine: mysql
+      EngineVersion: 8.0.35
+      MasterUserPassword: "String"
+      MasterUsername: "String"
+      MultiAZ: true
+      Port: "String"
+      PubliclyAccessible: false
+      VPCSecurityGroups: !Ref pVPC
+
+
+Outputs:

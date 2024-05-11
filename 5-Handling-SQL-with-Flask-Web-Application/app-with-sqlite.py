@@ -1,13 +1,30 @@
 # import modules
+from flask import Flask, render_template, request
+from flask_sqlalchemy import SQLAlchemy
 
 # setup flask app
 
+app = Flask (__name__)
 
 # - configure required environmental variables for SQLite
 
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///email.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+# create the database
+
+db = SQLAlchemy(app)
+
 # - Execute sql commands and commit them
+drop_table = 'DROP TABLE IF EXISTS users'
 
+users_table = """
+CREATE TABLE users(
+username VARCHAR NOT NULL PRIMARY KEY,
+email VARCHAR);
+"""
 
+db.session.execute
 # - Write a function named `find_emails` which find emails using keyword from the user table in the db,
 # - and returns result as tuples `(name, email)`.
 
