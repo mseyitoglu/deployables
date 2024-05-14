@@ -1,16 +1,3 @@
-# Hands-on Ansible-01: To Install Ansible and Ansible Basic Operations
-
-The purpose of this hands-on training is to give students knowledge of basic Ansible skills.
-
-## Learning Outcomes
-
-At the end of this hands-on training, students will be able to;
-
-- Explain what Ansible can do
-- Learn basic Ad-hoc commands  
-
-## Outline
-
 - Part 1 - Install Ansible
 
 - Part 2 - Ansible Ad-hoc Commands
