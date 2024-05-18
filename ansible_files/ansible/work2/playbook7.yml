@@ -1,0 +1,22 @@
+- name: remove packages from servers
+  hosts: web
+  become: true
+  tasks:
+    - name:
+      ansible.builtin.yum:
+        name: "{{ item }}" 
+        state: absent
+      loop :
+        - httpd
+        - wget
+- name: remove packages from ubuntu servers
+  hosts: ubuntu
+  become: true
+  tasks:
+    - name: remove packages from ubuntu servers
+      ansible.builtin.apt:
+        name: apache2
+        state: absent
+        autoremove: yes
+        purge: yes
+

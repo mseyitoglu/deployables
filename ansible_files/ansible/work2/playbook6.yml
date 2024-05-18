@@ -1,0 +1,28 @@
+- name: install apache to ubuntu servers
+  hosts: ubuntu
+  become: true
+  tasks:
+    - name: install apache and wget 
+      ansible.builtin.apt:
+        name: apache2
+        state: latest
+    - name: writing to index.html file
+      ansible.builtin.copy:
+        content: "<h1>Hello Mustafa</h1>"
+        dest: /var/www/html/index.html
+    - name: restart apache2
+      ansible.builtin.service:
+        name: apache2
+        state: restarted
+        enabled: yes
+- name: Apache and wget installation for webservers
+  hosts: web
+  become: true
+  tasks:
+    - name: installing httpd and wget
+      ansible.builtin.yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - httpd
+        - wget  

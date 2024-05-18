@@ -1,0 +1,27 @@
+- name: Apache instalation for linux-servers
+  hosts: web
+  become: true
+  tasks:
+    - name: Install the latest version of Apache
+      ansible.builtin.yum:
+        name: httpd
+        state: latest
+    - name: start Apache
+      ansible.builtin.shell:
+        "service httpd start"
+ 
+
+
+- name: apache installation for ubuntu
+  hosts: ubuntu
+  become: true
+  tasks:
+    - name: update
+      ansible.builtin.shell: "apt update -y"
+
+    - name: update
+      ansible.builtin.apt: 
+        name: apache2
+        state: latest 
+        
+

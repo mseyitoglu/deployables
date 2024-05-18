@@ -207,7 +207,7 @@ vim playbook5.yml
 
 - name: Remove Apache from ubuntuservers
   hosts: ubuntuservers
-  tasks:
+    tasks:
    - name: Remove Apache
      ansible.builtin.apt:
        name: apache2

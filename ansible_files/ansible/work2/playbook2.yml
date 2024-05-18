@@ -1,0 +1,17 @@
+- name: Copy for amazonlinux
+  hosts: web
+  tasks:
+    - name: Copy your file to amazonlinux servers
+      ansible.builtin.copy:
+        src: /Users/ms/deployables/deployables/ansible_files/ansible/work2/testfile1.txt
+        dest: /home/ec2-user/testfile1
+        mode: u+wr,g-wx,o-wrx
+    
+- name: Copy actions on ubuntu servers
+  hosts: ubuntu
+  tasks:
+    - name: Copy your file to ubuntu servers
+      ansible.builtin.copy:
+        src: /Users/ms/deployables/deployables/ansible_files/ansible/work2/testfile1.txt
+        dest: /home/ubuntu/testfile1
+        mode: u+wr,g-wx,o-wrx

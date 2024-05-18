@@ -1,0 +1,7 @@
+- name: try content
+  hosts: web
+  tasks:
+    - name: send content to servers
+      ansible.builtin.copy:
+        content: "send this to my servers"
+        dest: /home/ec2-user/testfile1 
