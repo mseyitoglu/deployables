@@ -1,0 +1,6 @@
+- name: Copy it to node1
+  hosts: all
+  tasks:
+    - name: print facts
+      ansible.builtin.debug:
+        var: ansible_facts

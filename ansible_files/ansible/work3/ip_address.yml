@@ -1,0 +1,19 @@
+- name: Get and expose ip address
+  hosts: all
+  tasks:
+    - name: show IP address
+      ansible.builtin.debug:
+        msg: >
+          this host's IP address is 
+          {{ ansible_facts.default_ipv4.address }}
+
+    - name: show bios version
+      ansible.builtin.debug:
+        msg: >
+          The bios version of this host is: 
+          {{ ansible_facts.bios_version }}
+    - name: show boot image
+      ansible.builtin.debug:
+        msg: > 
+          The boot image is :
+          {{ ansible_facts.cmdline.BOOT_IMAGE}}
