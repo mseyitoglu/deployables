@@ -1,0 +1,8 @@
+{
+    "ansible.python.interpreterPath": "/usr/local/bin/python3",
+    "editor.defaultFormatter": "redhat.ansible",
+    "ansible.ansible.useFullyQualifiedCollectionNames": true,
+    "ansible.ansible.reuseTerminal": false,
+    "ansible.executionEnvironment.enabled": false,
+    "workbench.settings.openDefaultKeybindings": true
+}
